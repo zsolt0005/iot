@@ -15,19 +15,18 @@ void Scheduler::cancel(const int8_t id) {
 }
 
 void Scheduler::run() {
-    for (uint8_t i = 0; i < MAX_TASKS; i++) {
-        Task &task = _tasks[i];
+    for (auto & task : _tasks) {
         if (task.fn == nullptr) {
             continue;
         }
 
         // Unsigned subtraction keeps working when millis() overflows.
-        uint32_t now = millis();
+        const uint32_t now = millis();
         if (now - task.lastRun < task.interval) {
             continue;
         }
 
-        Callback fn = task.fn;
+        const Callback fn = task.fn;
         if (task.repeat) {
             task.lastRun = now;
         } else {
@@ -38,13 +37,13 @@ void Scheduler::run() {
     }
 }
 
-int8_t Scheduler::add(uint32_t intervalMs, Callback fn, bool repeat) {
+int8_t Scheduler::add(const uint32_t intervalMs, const Callback fn, const bool repeat) {
     if (fn == nullptr) {
         return INVALID_ID;
     }
     for (uint8_t i = 0; i < MAX_TASKS; i++) {
         if (_tasks[i].fn == nullptr) {
-            _tasks[i] = {fn, intervalMs, millis(), repeat};
+            _tasks[i] = {.fn = fn, .interval = intervalMs, .lastRun = millis(), .repeat = repeat};
             return i;
         }
     }
