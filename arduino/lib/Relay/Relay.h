@@ -5,7 +5,7 @@
 // Single relay module such as KY-019 (active HIGH by default).
 class Relay {
 public:
-    explicit Relay(uint8_t pin, bool activeHigh = true);
+    explicit Relay(const uint8_t pin, const bool activeHigh = true) : _pin(pin), _activeHigh(activeHigh) {}
 
     // Configures the pin; the relay starts switched off.
     void begin();

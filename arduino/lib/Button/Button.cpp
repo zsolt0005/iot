@@ -1,7 +1,5 @@
 #include "Button.h"
 
-Button::Button(uint8_t pin, uint16_t debounceMs) : _pin(pin), _debounceMs(debounceMs) {}
-
 void Button::begin() const {
     pinMode(_pin, INPUT_PULLUP);
 }

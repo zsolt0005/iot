@@ -2,9 +2,6 @@
 
 #include <Wire.h>
 
-Display::Display(const uint8_t address, const uint8_t cols, const uint8_t rows)
-    : _lcd(address, cols, rows), _address(address), _cols(cols) { }
-
 bool Display::begin() {
     Wire.begin();
     // Do not hang forever when the bus is stuck (e.g. a loose wire).

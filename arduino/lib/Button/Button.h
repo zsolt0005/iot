@@ -7,7 +7,7 @@ class Button {
 public:
     typedef void (*Callback)();
 
-    explicit Button(uint8_t pin, uint16_t debounceMs = 30);
+    explicit Button(const uint8_t pin, const uint16_t debounceMs = 30) : _pin(pin), _debounceMs(debounceMs) {}
 
     void begin() const;
 

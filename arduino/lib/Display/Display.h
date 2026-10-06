@@ -5,7 +5,8 @@
 
 class Display {
 public:
-    Display(uint8_t address, uint8_t cols, uint8_t rows);
+    explicit Display(const uint8_t address, const uint8_t cols, const uint8_t rows)
+        : _lcd(address, cols, rows), _address(address), _cols(cols) { }
 
     // Returns false when no device answers on the given I2C address.
     bool begin();

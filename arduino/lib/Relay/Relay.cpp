@@ -1,7 +1,5 @@
 #include "Relay.h"
 
-Relay::Relay(const uint8_t pin, const bool activeHigh) : _pin(pin), _activeHigh(activeHigh) {}
-
 void Relay::begin() {
     // Write the level before switching to OUTPUT so the relay does not click on boot.
     set(false);
