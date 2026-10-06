@@ -35,7 +35,7 @@ void setup() {
     button.onPress(onButtonPress);
 
     if (!display.begin()) {
-        Serial.println(F("LCD not found, check wiring and LCD_ADDRESS"));
+        Serial.println("LCD not found, check wiring and LCD_ADDRESS");
     }
     showRelayState();
     showUptime();
