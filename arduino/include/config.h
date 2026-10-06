@@ -19,3 +19,7 @@ constexpr uint8_t BUTTON_PIN = 2;
 constexpr uint8_t LCD_ADDRESS = 0x27;
 constexpr uint8_t LCD_COLS = 16;
 constexpr uint8_t LCD_ROWS = 2;
+
+// WIfi settings
+constexpr char *WifiSSID = "ZHome";
+constexpr char *WifiPassword = "Sziszike15.";

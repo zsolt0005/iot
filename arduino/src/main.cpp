@@ -4,6 +4,7 @@
 #include <Display.h>
 #include <Relay.h>
 #include <Scheduler.h>
+#include <WifiManager.h>
 
 #include "config.h"
 
@@ -11,6 +12,8 @@ static Scheduler scheduler;
 static Relay relay(RELAY_PIN);
 static Button button(BUTTON_PIN);
 static Display display(LCD_ADDRESS, LCD_COLS, LCD_ROWS);
+
+static WifiManager wifiManager(WifiSSID, WifiPassword);
 
 static void showRelayState() {
     display.print(0, relay.isOn() ? "Relay: ON" : "Relay: OFF");
@@ -30,17 +33,22 @@ static void onButtonPress() {
 void setup() {
     Serial.begin(9600);
 
+    // Init components
     relay.begin();
     button.begin();
-    button.onPress(onButtonPress);
+    if (!display.begin()) Serial.println("LCD not found, check wiring and LCD_ADDRESS");
+    //if (!wifiManager.begin()) Serial.println("Failed to connect to WiFi");
 
-    if (!display.begin()) {
-        Serial.println("LCD not found, check wiring and LCD_ADDRESS");
-    }
+    // Pre-render
     showRelayState();
     showUptime();
 
+    // Callbacks
+    button.onPress(onButtonPress);
+
+    // Scheduled tasks
     scheduler.every(5, [] { button.update(); });
+    //scheduler.every(500, [] { wifiManager.update(); });
     scheduler.every(1000, showUptime);
 }
 
